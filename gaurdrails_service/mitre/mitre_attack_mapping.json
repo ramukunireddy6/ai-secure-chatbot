@@ -1,0 +1,29 @@
+{
+  "TA0001_Initial_Access": {
+    "description": "Techniques that allow an attacker to gain access to a system.",
+    "techniques": {
+      "T1190": "Exploit Public-Facing Application",
+      "T1078": "Valid Accounts"
+    }
+  },
+  "TA0002_Execution": {
+    "description": "Techniques that result in execution of malicious code.",
+    "techniques": {
+      "T1059": "Command and Scripting Interpreter",
+      "T1203": "Exploitation for Client Execution"
+    }
+  },
+  "TA0005_Defense_Evasion": {
+    "description": "Techniques used to evade defenses.",
+    "techniques": {
+      "T1027": "Obfuscated Files or Information",
+      "T1562": "Impair Defenses"
+    }
+  },
+  "TA0010_Exfiltration": {
+    "description": "Techniques used to steal data from a system.",
+    "techniques": {
+      "T1041": "Exfiltration Over C2 Channel"
+    }
+  }
+}
