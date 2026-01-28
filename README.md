@@ -45,30 +45,30 @@ The platform is designed for **regulated, security-sensitive environments** wher
 
 ## High-Level Architecture
 
+```mermaid
 graph TD
-U[User / Client]
-U -->|HTTPS| GW[API Gateway / Envoy / Istio]
+    U[User / Client] -->|HTTPS| GW[API Gateway / Envoy / Istio]
 
-GW -->|OIDC AuthN/Z| APP[FastAPI Chatbot Service]
+    GW -->|OIDC AuthN/Z| APP[FastAPI Chatbot Service]
 
-APP --> GR[Guardrails Engine]
-GR -->|Detects| PI[Prompt Injection]
-GR -->|Detects| RA[Ransomware / Malware Intent]
-GR -->|Validates| IMG[Image Safety]
-GR -->|Maps| MITRE[MITRE ATT&CK Techniques]
+    APP --> GR[Guardrails Engine]
+    GR -->|Detects| PI[Prompt Injection]
+    GR -->|Detects| RA[Ransomware / Malware Intent]
+    GR -->|Validates| IMG[Image Safety]
+    GR -->|Maps| MITRE[MITRE ATT&CK Techniques]
 
-APP --> RAG[RAG Pipeline]
-RAG --> VDB[(PostgreSQL + pgvector)]
+    APP --> RAG[RAG Pipeline]
+    RAG --> VDB[(PostgreSQL + pgvector)]
 
-RAG --> RR[Reranker]
-RR --> LLM[AWS Bedrock LLMs]
-LLM --> FB[Fallback LLMs]
+    RAG --> RR[Reranker]
+    RR --> LLM[AWS Bedrock LLMs]
+    LLM --> FB[Fallback LLMs]
 
-LLM --> SC[LLM Self-Critique Guard]
-SC --> APP
+    LLM --> SC[LLM Self-Critique Guard]
+    SC --> APP
 
-APP --> MET[Prometheus Metrics]
-MET --> GRAF[Grafana Dashboards]
+    APP --> MET[Prometheus Metrics]
+    MET --> GRAF[Grafana Dashboards]
 
 ---
 
