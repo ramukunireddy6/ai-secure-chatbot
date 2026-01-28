@@ -1,4 +1,4 @@
-# 🔐 AI Secure Chatbot Platform  
+# AI Secure Chatbot Platform  
 ## Zero-Trust GenAI with Guardrails, RAG, Multi-LLM Fallback, and Observability
 
 This repository implements an **enterprise-grade internal AI chatbot platform** with **security-first design**.  
@@ -8,9 +8,9 @@ The platform is designed for **regulated, security-sensitive environments** wher
 
 ---
 
-## 🚀 Key Features
+## Key Features
 
-### 🤖 AI Chatbot
+### AI Chatbot
 - Google ADK–based agent orchestration
 - Retrieval-Augmented Generation (RAG)
 - PostgreSQL + pgvector vector database
@@ -18,7 +18,7 @@ The platform is designed for **regulated, security-sensitive environments** wher
 - Multi-LLM fallback strategy
 - Primary inference hosted on **AWS Bedrock**
 
-### 🛡️ AI Guardrails & Security
+### AI Guardrails & Security
 - **Pre-LLM guardrails**
   - Prompt injection detection
   - Indirect prompt injection protection
@@ -30,12 +30,12 @@ The platform is designed for **regulated, security-sensitive environments** wher
 - OIDC authentication (Cognito / Okta / ForgeRock compatible)
 - MITRE ATT&CK–aligned threat detection
 
-### 📊 Observability
+### Observability
 - Prometheus metrics
 - Grafana dashboards
 - Security KPIs and anomaly monitoring
 
-### ☁️ Cloud-Native & DevOps
+### Cloud-Native & DevOps
 - FastAPI microservices
 - Kubernetes & Istio ready
 - Helm charts
@@ -43,7 +43,7 @@ The platform is designed for **regulated, security-sensitive environments** wher
 
 ---
 
-## 🏗️ High-Level Architecture
+## High-Level Architecture
 
 Client
 ↓
@@ -68,7 +68,7 @@ Response
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ai-secure-chatbot/
 ├── chatbot-api/
@@ -98,7 +98,7 @@ ai-secure-chatbot/
 
 ---
 
-## 🔐 Guardrails Coverage
+## Guardrails Coverage
 
 | Threat | Enforcement Layer |
 |------|-------------------|
@@ -112,7 +112,7 @@ ai-secure-chatbot/
 
 ---
 
-## 🧭 MITRE ATT&CK Mapping
+## MITRE ATT&CK Mapping
 
 The system maps AI-specific threats to MITRE ATT&CK tactics, including:
 
@@ -127,7 +127,7 @@ mitre/mitre_attack_mapping.json
 
 ---
 
-## 📊 Metrics & Dashboards
+## Metrics & Dashboards
 
 ### Prometheus Metrics
 - `prompt_injection_blocks_total`
@@ -143,7 +143,7 @@ mitre/mitre_attack_mapping.json
 
 ---
 
-## 🔑 Authentication (OIDC)
+## Authentication (OIDC)
 
 - Bearer token–based authentication
 - Compatible with:
@@ -154,7 +154,7 @@ mitre/mitre_attack_mapping.json
 
 ---
 
-## 🚀 Deployment & Run Guide
+## Deployment & Run Guide
 
 ### Prerequisites
 
@@ -344,4 +344,4 @@ Triggered on pull requests and main branch pushes.
   * Verify Service labels match ServiceMonitor selector
   * Ensure Prometheus release label is correct
 
-🔗 **GitHub**: [https://github.com/ramukunireddy6/ai-secure-chatbot](https://github.com/ramukunireddy6/ai-secure-chatbot)
+**GitHub**: [https://github.com/ramukunireddy6/ai-secure-chatbot](https://github.com/ramukunireddy6/ai-secure-chatbot)
