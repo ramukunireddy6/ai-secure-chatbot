@@ -154,47 +154,200 @@ mitre/mitre_attack_mapping.json
 
 ---
 
-## 📦 Deployment
+# AI Secure Chatbot Platform
 
-### Kubernetes (Helm)
-```bash
-helm install ai-guardrails helm/ai-guardrails
-Istio / Envoy
-Envoy ext_authz blocks malicious AI requests before they reach the chatbot
-Guardrails are enforced at the mesh boundary
-🔁 CI/CD
-GitHub Actions pipeline includes:
-Dependency installation
-Unit tests
-Guardrails regression tests
-PR & main-branch validation
-Workflow location:
-.github/workflows/ci.yml
-🧪 Testing Strategy
-Unit tests for guardrails detectors
-Prompt injection fuzzing
-Ransomware intent simulations
-Chaos testing for LLM fallback paths
-🎯 Use Cases
-Internal enterprise chatbot
-Secure RAG over proprietary data
-Banking / healthcare AI assistants
-Regulated GenAI platforms
-🧠 Why This Project Matters
-This repository demonstrates:
-Zero-trust AI architecture
-Security-first GenAI design
-Production-ready cloud deployment
-MITRE-aligned AI threat modeling
-📜 License
-MIT License
+An **enterprise-grade, security-first GenAI chatbot platform** built with FastAPI, RAG, AWS Bedrock, and cloud‑native observability. The system is designed to defend against prompt injection, ransomware intent, data exfiltration, and unsafe content while providing scalable, production-ready AI capabilities.
 
 ---
 
-If you want next, I can:
-- Generate **architecture diagrams (PNG / SVG)**
-- Add **Terraform (EKS + RDS + Bedrock)**
-- Create a **LinkedIn post** explaining this system
-- Turn this into an **interview walkthrough**
+## 🚀 Deployment & Run Guide
 
-Just tell me 👍
+### Prerequisites
+
+**Local**
+
+* Python 3.10+
+* Docker & Docker Compose
+* kubectl
+* Helm v3+
+
+**Kubernetes**
+
+* Kubernetes cluster (EKS / kind / minikube)
+* Prometheus Operator
+* AWS credentials (for Bedrock access)
+
+---
+
+### Local Run (Development Mode)
+
+```bash
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+Set environment variables:
+
+```bash
+export AWS_REGION=us-east-1
+export BEDROCK_MODEL_ID=anthropic.claude-3
+export DATABASE_URL=postgresql://postgres:postgres@localhost:5432/chatbot
+export OIDC_ISSUER=https://auth.example.com
+export OIDC_AUDIENCE=chatbot
+```
+
+Start PostgreSQL + pgvector:
+
+```bash
+docker run -d -p 5432:5432 -e POSTGRES_PASSWORD=postgres ankane/pgvector
+```
+
+Run the application:
+
+```bash
+uvicorn app.main:app --reload --port 8080
+```
+
+Verify:
+
+```bash
+curl http://localhost:8080/health
+curl http://localhost:8080/metrics
+```
+
+---
+
+### Docker Build & Run
+
+```bash
+docker build -t ai-secure-chatbot:latest .
+
+docker run -p 8080:8080 \
+  -e AWS_REGION=us-east-1 \
+  -e DATABASE_URL=postgresql://postgres:postgres@host.docker.internal:5432/chatbot \
+  ai-secure-chatbot
+```
+
+---
+
+### Kubernetes Deployment (Helm)
+
+Add Prometheus Helm repo:
+
+```bash
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+```
+
+Install Prometheus Operator:
+
+```bash
+helm install prometheus prometheus-community/kube-prometheus-stack \
+  --namespace monitoring --create-namespace
+```
+
+---
+
+### Deploy Chatbot via Helm
+
+```bash
+helm lint helm/chatbot
+helm template chatbot helm/chatbot
+
+helm install chatbot helm/chatbot \
+  --namespace ai --create-namespace
+```
+
+Upgrade:
+
+```bash
+helm upgrade chatbot helm/chatbot -n ai
+```
+
+---
+
+### Verify Deployment
+
+```bash
+kubectl get pods -n ai
+kubectl get svc -n ai
+kubectl get servicemonitor -n ai
+```
+
+Port forward:
+
+```bash
+kubectl port-forward svc/chatbot 8080:80 -n ai
+```
+
+---
+
+### Metrics & Observability
+
+* **Prometheus** scrapes `/metrics` via ServiceMonitor
+* **Grafana** dashboards visualize latency, token usage, guardrail blocks, and MITRE ATT&CK mappings
+
+Access Grafana:
+
+```bash
+kubectl port-forward svc/prometheus-grafana 3000:80 -n monitoring
+```
+
+---
+
+### 8️⃣ Runtime Guardrails Flow
+
+```
+User Prompt
+   ↓
+Envoy / Istio Filter (optional)
+   ↓
+FastAPI Guardrails Engine
+   ├─ Prompt Injection Detection
+   ├─ Ransomware / Malware Intent Detection
+   ├─ Image Safety Validation
+   ├─ MITRE ATT&CK Mapping
+   ↓
+RAG (PostgreSQL + pgvector)
+   ↓
+LLM (AWS Bedrock → Fallback Models)
+   ↓
+LLM Self‑Critique Guard
+   ↓
+Final Response
+```
+
+---
+
+### CI/CD (GitHub Actions)
+
+```text
+.github/workflows/
+ ├─ ci.yml        # Tests + linting
+ ├─ docker.yml    # Docker build & push
+ └─ helm.yml      # Helm lint & template validation
+```
+
+Triggered on pull requests and main branch pushes.
+
+---
+
+### Troubleshooting
+
+* **ServiceMonitor not found**:
+
+  ```bash
+  kubectl get crd | grep servicemonitor
+  ```
+* **Helm YAML errors**:
+
+  ```bash
+  helm template chatbot helm/chatbot --debug
+  ```
+* **Metrics not scraped**:
+
+  * Verify Service labels match ServiceMonitor selector
+  * Ensure Prometheus release label is correct
+
+🔗 **GitHub**: [https://github.com/ramukunireddy6/ai-secure-chatbot](https://github.com/ramukunireddy6/ai-secure-chatbot)
