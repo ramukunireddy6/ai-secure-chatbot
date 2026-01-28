@@ -154,12 +154,6 @@ mitre/mitre_attack_mapping.json
 
 ---
 
-# AI Secure Chatbot Platform
-
-An **enterprise-grade, security-first GenAI chatbot platform** built with FastAPI, RAG, AWS Bedrock, and cloud‑native observability. The system is designed to defend against prompt injection, ransomware intent, data exfiltration, and unsafe content while providing scalable, production-ready AI capabilities.
-
----
-
 ## 🚀 Deployment & Run Guide
 
 ### Prerequisites
@@ -296,7 +290,7 @@ kubectl port-forward svc/prometheus-grafana 3000:80 -n monitoring
 
 ---
 
-### 8️⃣ Runtime Guardrails Flow
+### Runtime Guardrails Flow
 
 ```
 User Prompt
