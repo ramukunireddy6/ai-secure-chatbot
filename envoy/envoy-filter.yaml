@@ -1,0 +1,8 @@
+http_filters:
+- name: envoy.filters.http.ext_authz
+  typed_config:
+    "@type": type.googleapis.com/envoy.extensions.filters.http.ext_authz.v3.ExtAuthz
+    http_service:
+      server_uri:
+        uri: http://guardrails-service:8000
+        cluster: guardrails
