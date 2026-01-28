@@ -1,0 +1,32 @@
+{
+  "title": "AI Guardrails Security Dashboard",
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Prompt Injection Blocks",
+      "targets": [
+        {
+          "expr": "guardrails_blocked_requests_total{mitre_tactic=\"TA0001_Initial_Access\"}"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Ransomware Attempts",
+      "targets": [
+        {
+          "expr": "guardrails_blocked_requests_total{mitre_tactic=\"TA0010_Exfiltration\"}"
+        }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "Guardrails Latency",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(guardrails_request_latency_seconds_bucket[5m])) by (le))"
+        }
+      ]
+    }
+  ]
+}

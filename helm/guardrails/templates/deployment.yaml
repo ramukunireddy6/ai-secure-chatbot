@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-guardrails
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ai-guardrails
+  template:
+    metadata:
+      labels:
+        app: ai-guardrails
+    spec:
+      containers:
+        - name: guardrails
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: 8000
+            - containerPort: 8001 # Prometheus

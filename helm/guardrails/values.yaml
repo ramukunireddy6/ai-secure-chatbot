@@ -1,0 +1,9 @@
+image:
+  repository: ai-guardrails
+  tag: latest
+
+service:
+  port: 8000
+
+metrics:
+  enabled: true

@@ -1,0 +1,16 @@
+{{- if .Values.metrics.enabled -}}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: chatbot-api
+  labels:
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: chatbot-api
+  endpoints:
+    - port: metrics
+      interval: 15s
+{{- end }}
