@@ -45,7 +45,7 @@ The platform is designed for **regulated, security-sensitive environments** wher
 
 ## High-Level Architecture
 
-```mermaid
+```
 graph TD
     U[User / Client] -->|HTTPS| GW[API Gateway / Envoy / Istio]
 
@@ -69,11 +69,10 @@ graph TD
 
     APP --> MET[Prometheus Metrics]
     MET --> GRAF[Grafana Dashboards]
-
+```
 ---
-
 ## Project Structure
-
+```
 ai-secure-chatbot/
 ├── chatbot-api/
 │ ├── main.py
@@ -99,9 +98,8 @@ ai-secure-chatbot/
 ├── .github/workflows/ci.yml
 ├── requirements.txt
 └── README.md
-
+```
 ---
-
 ## Guardrails Coverage
 
 | Threat | Enforcement Layer |
